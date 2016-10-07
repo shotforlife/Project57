@@ -1,6 +1,7 @@
 package com.nix.runner;
 
 import com.nix.Parser.Parse;
+import com.nix.pageMapping.MainPageMap;
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 import junit.framework.AssertionFailedError;
@@ -22,7 +23,7 @@ import java.util.concurrent.TimeUnit;
         plugin = {"html:target/cucumber-report/stackoverflow", "json:target/cucumber.json"},
         features = "src/test/java/com/nix/features",
         glue = "com/nix/stepdefs",
-        tags = "")
+        tags = "@Smoke")
 
 public class Runner {
     public static WebDriver driver;
