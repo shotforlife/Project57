@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
         plugin = {"html:target/cucumber-report/stackoverflow", "json:target/cucumber.json"},
         features = "src/test/java/com/nix/features",
         glue = "com/nix/stepdefs",
-        tags = "@Search")
+        tags = "@Purchase")
 
 public class Runner {
     public static WebDriver driver;
@@ -38,6 +38,6 @@ public class Runner {
 
     @AfterClass
     public static void theEnd() {
-        driver.quit();
+       driver.quit();
     }
 }
