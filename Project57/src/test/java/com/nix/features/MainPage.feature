@@ -1,4 +1,4 @@
-@Smoke
+@MainPage
 Feature: Check the main links of the main page
 
   Background:
