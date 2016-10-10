@@ -16,11 +16,9 @@ import static junit.framework.Assert.assertEquals;
  */
 public class MainPageStepdefs {
     private static MainPageMap mainPage;
-    private static String URL;
-    private static String PAGE;
 
     @Given("^I am on '57' start page$")
-    public void iAmOnNixSolutionsStartPage() throws Throwable {
+    public void iAmOn57StartPage() throws Throwable {
         if (!Runner.driver.getCurrentUrl().equals(Parse.URL))
             Runner.driver.get(Parse.URL);
         mainPage = new MainPageMap(Runner.driver);
