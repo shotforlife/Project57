@@ -5,6 +5,7 @@ Feature: Check the main links of the main page
   Background:
     Given I am on '57 shop' start page
 
+   @Links @Clicks @High
   Scenario Outline: 001 Check Products link
     When I click on "<type>" button to go to another page
     Then I see the correct "<name>" of the page

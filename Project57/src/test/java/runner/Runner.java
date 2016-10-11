@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
         plugin = {"html:target/cucumber-report/stackoverflow", "json:target/cucumber.json"},
         features = "src/test/resources/features",
         glue = "stepdefs",
-        tags = "@Purchase")
+        tags = "@Smoke")
 
 public class Runner {
     public static WebDriver driver;

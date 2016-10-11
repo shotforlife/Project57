@@ -15,7 +15,7 @@ import org.junit.Assert;
  * Created by mukhin on 10/10/2016.
  */
 public class PurchaseStepdefs {
-    public static PurchaseMap purchaseMap;
+    private static PurchaseMap purchaseMap;
 
     @Given("^I get the list of some products$")
     public void getTheListOfProducts() throws Throwable {

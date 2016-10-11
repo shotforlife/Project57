@@ -5,7 +5,7 @@ Feature: Check that a search is working correctly
   Background:
     Given Get '57 shop' start page
 
-  @ValidKeys
+  @ValidKeys @Medium @Positive
   Scenario Outline: 001 Check search valid keys
     When I enter the search "<keyword>"
     And I click 'search' button
@@ -19,7 +19,7 @@ Feature: Check that a search is working correctly
       | клавиатура   |
 
 
-  @InvalidKeys
+  @InvalidKeys @Mediun @Negative
   Scenario Outline: 002 Check search invalid keys
     When I enter the search "<keyword>"
     And I click 'search' button

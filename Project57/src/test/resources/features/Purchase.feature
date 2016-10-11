@@ -5,7 +5,7 @@
     Background:
       Given I get the list of some products
 
-      @AddBasket
+      @AddBasket @High
       Scenario Outline: 001 Check that product added in the basket when user buy it
         When I click on Buy button on some product
         Then I see that the basket have "<count>" product
@@ -16,7 +16,7 @@
         |   2      |
         |   3      |
 
-        @DeleteBasket
+        @DeleteBasket @High
         Scenario: 002 Check that user can delete products from basket
           When I am in the basket
           And I put the checkmark into field 'delete'
