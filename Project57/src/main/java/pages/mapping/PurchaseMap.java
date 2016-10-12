@@ -1,10 +1,9 @@
 package pages.mapping;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-import java.util.Properties;
 
 /**
  * Created by mukhin on 10/10/2016.
@@ -27,7 +26,7 @@ public class PurchaseMap {
     private WebElement Basket;
 
     @FindBy(xpath = ".//*[@id='edit-items-0-qty']")
-    public WebElement ProductsQuantity;
+    private WebElement ProductsQuantity;
 
     @FindBy(xpath = ".//*[@id='edit-items-0-remove']")
     private WebElement RemoveCheckmark;
@@ -36,17 +35,19 @@ public class PurchaseMap {
     private WebElement UpdateButton;
 
     @FindBy(xpath = ".//*[@id='main']/p")
-    public WebElement NoProductsMessage;
+    private WebElement NoProductsMessage;
 
-    @FindBy (xpath = ".//*[@id='cart-block-products']")
+    @FindBy(xpath = ".//*[@id='cart-block-products']")
     private WebElement BasketTitle;
 
-    public void clickOnUpdateButton() {
-        UpdateButton.click();
+    public void clickOnUpdateButton(int count) {
+        if (count != 0)
+            UpdateButton.click();
     }
 
-    public void putRemoveCheckmark() {
-        RemoveCheckmark.click();
+    public void putRemoveCheckmark(int count) {
+        if (count != 0)
+            RemoveCheckmark.click();
     }
 
     public void getProductList() {
@@ -57,11 +58,27 @@ public class PurchaseMap {
         Basket.click();
     }
 
-    public void clickOnBuyButton() {
-        BuyButton.click();
+    public void clickOnBuyButton(int count) {
+        for (int i = 0; i < count; i++) {
+            BuyButton.click();
+            driver.navigate().back();
+        }
     }
 
-    public String getTextOfBasketTitle () {
+    public String getTextOfBasketTitle() {
         return BasketTitle.getText();
+    }
+
+    public String getTextOfNoProductMessage() {
+        return NoProductsMessage.getText();
+    }
+
+    public String getProductsQuantityAttribute(String attribute, int count) {
+        while (count == 0) {
+            if (NoProductsMessage.isDisplayed()) {
+                return "0";
+            }
+        }
+        return ProductsQuantity.getAttribute(attribute);
     }
 }

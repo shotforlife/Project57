@@ -9,7 +9,6 @@ import org.openqa.selenium.support.PageFactory;
  * Created by lyzenkova on 10/7/2016.
  */
 public class AuthorisationMap {
-
     public WebDriver driver;
 
     public AuthorisationMap(WebDriver driver) {

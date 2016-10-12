@@ -16,7 +16,7 @@ public class Parse {
 
     }
 
-    public static HashMap<String, String> read() {
+    private static HashMap<String, String> read() {
         XMLConfiguration config = null;
         HashMap<String, String> map = new HashMap<>();
         try {

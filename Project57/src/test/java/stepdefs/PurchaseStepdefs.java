@@ -4,11 +4,7 @@ import utils.parser.Parse;
 import pages.mapping.PurchaseMap;
 import utils.regex.Regex;
 import runner.Runner;
-import cucumber.api.PendingException;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import cucumber.api.java.en.*;
 import org.junit.Assert;
 
 /**
@@ -25,46 +21,39 @@ public class PurchaseStepdefs {
         purchaseMap.getProductList();
     }
 
-    @When("^I click on Buy button on some product$")
-    public void iClickOnBuyButton() throws Throwable {
-        purchaseMap.clickOnBuyButton();
+    @When("^I click on Buy button \"([^\"]*)\" times on some products$")
+    public void iClickOnBuyButtonTimesOnSomeProducts(int count) throws Throwable {
+        purchaseMap.clickOnBuyButton(count);
     }
 
-    @Then("^I see that the basket have \"([^\"]*)\" product$")
-    public void iSeeThatTheBasketHaveProduct(int count) throws Throwable {
-        Assert.assertEquals("!!!", String.valueOf(count), purchaseMap.ProductsQuantity.getAttribute("value"));
-
-    }
-    
-    @When("^I am in the basket$")
-    public void iAmInTheBasket() throws Throwable {
+    @And("^I go in the basket$")
+    public void iGoInTheBasket() throws Throwable {
         purchaseMap.getBasket();
     }
 
-    @And("^I put the checkmark into field 'delete'$")
-    public void iPutTheCheckmarkIntoFieldDelete() throws Throwable {
-        purchaseMap.putRemoveCheckmark();
+    @And("^I see that the basket have \"([^\"]*)\" product$")
+    public void iSeeThatTheBasketHaveProduct(int count) throws Throwable {
+        Assert.assertEquals("!!!", String.valueOf(count), purchaseMap.getProductsQuantityAttribute("value", count));
     }
 
-    @And("^I click on button 'update'$")
-    public void iClickOnButtonUpdate() throws Throwable {
-        purchaseMap.clickOnUpdateButton();
+    @And("^I put the checkmark into field 'delete' when \"([^\"]*)\" bigger than zero$")
+    public void iPutTheCheckmarkIntoFieldDeleteWhenBiggerThanZero(int count) throws Throwable {
+        purchaseMap.putRemoveCheckmark(count);
+    }
+
+    @And("^I click on button 'update' when \"([^\"]*)\" bigger than zero$")
+    public void iClickOnButtonUpdate(int count) throws Throwable {
+        purchaseMap.clickOnUpdateButton(count);
     }
 
     @Then("^I see the message \"([^\"]*)\"$")
     public void iSeeTheMessage(String message) throws Throwable {
-        Assert.assertTrue("!!!", purchaseMap.NoProductsMessage.getText().contains(message));
+        Assert.assertTrue("!!!", purchaseMap.getTextOfNoProductMessage().contains(message));
     }
 
-    @Given("^I get the number of products in basket$")
-    public void iGetTheNumberOfProductsInBasket(String count) throws Throwable {
-        Assert.assertEquals("!!!", count, Regex.regexCheck(purchaseMap.getTextOfBasketTitle()));
-    }
-
-    @And("^From main page in basket title I see \"([^\"]*)\" of products$")
+    @Then("^From main page in basket title I see \"([^\"]*)\" of products$")
     public void fromMainPageInBasketTitleISeeOfProducts(String count) throws Throwable {
         Runner.driver.get(Parse.URL);
         Assert.assertEquals("!!!", count, Regex.regexCheck(purchaseMap.getTextOfBasketTitle()));
     }
-
 }
