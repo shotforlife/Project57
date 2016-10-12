@@ -38,7 +38,7 @@ public class SortingStepdefs {
 
     @Then("^I check that prices of products are in descending order$")
     public void iCheckThatPricesOfProductsAreInDescendingOrder() throws Throwable {
-        Assert.assertTrue("!!!!!!!!!!!!!!!", sortingMap.checkingSort(sortingMap.writingPricesList()));
+        Assert.assertTrue("!!!!!!!!!!!!!!!", sortingMap.checkingSortDes(sortingMap.writingPricesList()));
     }
 
     @When("^I click on the 'ascending' link$")
@@ -48,6 +48,6 @@ public class SortingStepdefs {
 
     @Then("^I check that prices of products are in ascending order$")
     public void iCheckThatPricesOfProductsAreInAscendingOrder() throws Throwable {
-        Assert.assertFalse("!!!!!!!!!!!!!", sortingMap.checkingSort(sortingMap.writingPricesList()));
+        Assert.assertTrue("!!!!!!!!!!!!!", sortingMap.checkingSortAsc(sortingMap.writingPricesList()));
     }
 }

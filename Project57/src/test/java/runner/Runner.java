@@ -9,13 +9,12 @@ import org.junit.runner.RunWith;
 import org.openqa.selenium.WebDriver;
 import java.util.concurrent.TimeUnit;
 
-
 @RunWith(Cucumber.class)
 @CucumberOptions(
         plugin = {"html:target/cucumber-report/stackoverflow", "json:target/cucumber.json"},
         features = "src/test/resources/features",
         glue = "stepdefs",
-        tags = "@Smoke")
+        tags = "@Check_Sorting_Of_Processors")
 
 public class Runner {
     public static WebDriver driver;

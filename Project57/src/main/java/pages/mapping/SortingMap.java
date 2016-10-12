@@ -61,24 +61,39 @@ public class SortingMap {
 
     public double[] writingPricesList() {
         double[] listOfPrices = new double[prices.size()];
-        try{
+        try {
             for (int i = 0; i < prices.size(); i++) {
                 listOfPrices[i] = regexReadingPrice(prices.get(i).getText());
             }
-        } catch (RuntimeException e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
         return listOfPrices;
     }
 
-    public boolean checkingSort(double[] list) {
+    public boolean checkingSortDes(double[] list) {
         try {
-            for (int i = 0; i < list.length; i++) {
-                return list[i] > list[i + 1];
+            for (int i = 0; i < list.length - 1; i++) {
+                if (list[i] > list[i + 1]) {
+                } else {
+                    return false;
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
 
-        } catch (RuntimeException e) {
+    public boolean checkingSortAsc(double[] list) {
+        try {
+            for (int i = 0; i < list.length - 1; i++) {
+                if (list[i] < list[i + 1]){
+                } else {
+                    return false;
+                }
+            }
+        } catch (Exception e){
             e.printStackTrace();
         }
         return true;
