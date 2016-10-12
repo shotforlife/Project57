@@ -1,7 +1,5 @@
 package utils.regex;
 
-import com.sun.xml.internal.ws.server.ServerRtException;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,5 +15,17 @@ public class Regex {
             result = matcher.group();
         }
         return result;
+    }
+
+    public static double regexReadingPrice(String str) {
+        Pattern pattern = Pattern.compile("\\d+");
+        Matcher m = pattern.matcher(str);
+        StringBuilder sb = new StringBuilder();
+        while (m.find()){
+            String bw = m.group();
+            sb.append(bw);
+        }
+        String s = new String(sb);
+        return new Double(s);
     }
 }

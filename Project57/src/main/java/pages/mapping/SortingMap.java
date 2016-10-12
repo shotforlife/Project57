@@ -1,77 +1,86 @@
 package pages.mapping;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.io.BufferedWriter;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.List;
+
+import static utils.regex.Regex.regexReadingPrice;
 
 /**
  * Created by lyzenkova on 10/10/2016.
  */
 public class SortingMap {
 
-    public WebDriver driver;
-    double readingPrice;
-    String attribute;
-
+    private WebDriver driver;
 
     public SortingMap(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
     }
 
-    @FindBy (xpath = ".//*[@id='block-jquerymenu-1']/div/ul/li[2]/ul/li[1]/a")
-    public WebElement processorAMDLink;
+    @FindBy(xpath = ".//*[@id='block-jquerymenu-1']//a[contains(text(), \"AMD\")]")
+    private WebElement processorAMDLink;
 
-    @FindBy (xpath = ".//*[@id='main']/div[2]/div[1]/div/div/div/div[8]/a[2]")
-    public WebElement ascendingLink;
+    @FindBy(xpath = ".//*[@id='main']//a[contains(text(), \"возрастанию\")]")
+    private WebElement ascendingLink;
 
-    @FindBy (xpath = ".//*[@id='main']/div[2]/div[1]/div/div/div/div[8]/a[3]")
-    public WebElement descendingLink;
+    @FindBy(xpath = ".//*[@id='main']//a[contains(text(), \"убыванию\")]")
+    private WebElement descendingLink;
 
-    @FindBy (xpath = ".//*[@id='main']/div[2]/div[2]/ul/li[1]/div/div[3]/div[1]")
-    public WebElement firstPrice;
+    @FindBy(xpath = ".//*[@id='main']//div[@class='sell-price']")
+    private List<WebElement> prices;
 
-    @FindBy (xpath = ".//*[@id='main']/div[2]/div[2]/ul/li[2]/div/div[3]/div[1]")
-    public WebElement secondPrice;
+    @FindBy(xpath = ".//*[@id='main']//a[contains(text(), \"наличии\")]")
+    private WebElement stockLink;
 
-    @FindBy (xpath = ".//*[@id='main']/div[2]/div[2]/ul/li[5]/div/div[3]/div[1]")
-    public WebElement thirdPrice;
+    @FindBy(xpath = ".//*[@id='main']/h2")
+    private WebElement processorAMDTitle;
 
-
-
-    public double readingPrise(WebElement webElement){
-        attribute = webElement.getText();
-        Pattern pattern = Pattern.compile("\\d+");
-        Matcher m = pattern.matcher(attribute);
-        StringBuilder sb = new StringBuilder();
-        while (m.find()){
-            String bw = m.group().toString();
-            sb.append(bw);
-        }
-        String s = new String(sb);
-        readingPrice = new Double(s);
-        return readingPrice;
+    public void clickLinkProcessor() {
+        processorAMDLink.click();
     }
 
-    public boolean checkingForAscending(double firstPr, double secondPr){
-        if(firstPr < secondPr){
-            return true;
-        } else {
-            return false;
-        }
+    public void clickAscendingLink() {
+        ascendingLink.click();
     }
 
-    public boolean checkingForDescending(double firstPr, double secondPr){
-        if(firstPr > secondPr){
-            return true;
-        } else {
-            return false;
+    public void clickDescendingLink() {
+        descendingLink.click();
+    }
+
+    public void clickStockLink() {
+        stockLink.click();
+    }
+
+    public boolean checkTitleProcessorAMD() {
+        return processorAMDTitle.getText().contains("Процессоры");
+    }
+
+    public double[] writingPricesList() {
+        double[] listOfPrices = new double[prices.size()];
+        try{
+            for (int i = 0; i < prices.size(); i++) {
+                listOfPrices[i] = regexReadingPrice(prices.get(i).getText());
+            }
+        } catch (RuntimeException e){
+            e.printStackTrace();
         }
+
+        return listOfPrices;
+    }
+
+    public boolean checkingSort(double[] list) {
+        try {
+            for (int i = 0; i < list.length; i++) {
+                return list[i] > list[i + 1];
+            }
+
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 }
